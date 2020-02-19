@@ -103,13 +103,13 @@ def wq(vals, wts, qtls, order=None, mask=None):
             elif mask.__getitem__(nd_index):
                 continue
 
-            ret[nd_index] = wq_(vals, wts[nd_index], qtls, order)
+            ret[nd_index] = _wq(vals, wts[nd_index], qtls, order)
 
         return ret
 
 
 @nb.njit(parallel=True)
-def wq_(vals, wts, qtls, order):
+def _wq(vals, wts, qtls, order):
     """weighted quantile base function
     
     LLVM, JIT-compiled function for finding weighted quantile

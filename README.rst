@@ -1,13 +1,9 @@
+.. include:: docs/macros.hrst
+
 quirinius
 =========
 
-.. image:: https://img.shields.io/pypi/v/quirinius.svg
-    :target: https://pypi.python.org/pypi/quirinius
-    :alt: Latest PyPI version
-
-.. image:: https://travis-ci.org/zpace/quirinius.png
-   :target: https://travis-ci.org/zpace/quirinius
-   :alt: Latest Travis CI build status
+|Docs Badge| |PyPI Badge| |Travis Badge|
 
 weighted quantiles using numba
 

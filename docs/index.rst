@@ -10,7 +10,7 @@ quirinius
 
 *quirinius* is a lightweight python package, for computing percentiles of weighted samples.
 
-|Docs Badge|
+|Docs Badge| |PyPI Badge| |Travis Badge|
 
 .. automodule:: quirinius.quantile
    :members:

@@ -4,3 +4,11 @@
     :alt: Documentation Status
     :scale: 100%
     :target: http://quirinius.readthedocs.io
+
+.. |PyPI Badge| image:: https://img.shields.io/pypi/v/quirinius.svg
+    :target: https://pypi.python.org/pypi/quirinius
+    :alt: Latest PyPI version
+
+.. |Travis Badge| image:: https://travis-ci.org/zpace/quirinius.png
+   :target: https://travis-ci.org/zpace/quirinius
+   :alt: Latest Travis CI build status
