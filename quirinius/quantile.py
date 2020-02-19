@@ -15,11 +15,11 @@ def val_at_qtl_(vals, cumul_qtl, qtl):
     
     Parameters
     ----------
-    vals : {np.ndarray}
+    vals : {|ndarray|}
         values to be weighted, pre-sorted
-    cumul_qtl : {np.ndarray}
+    cumul_qtl : {|ndarray|}
         cumulative quantiles of values
-    qtl : {np.ndarray}
+    qtl : {|ndarray|}
         quantile(s) sought
     
     Returns
@@ -29,6 +29,8 @@ def val_at_qtl_(vals, cumul_qtl, qtl):
     """
 
     n = vals.size
+
+    qtl = np.atleast_1d(qtl)
 
     # search in cumulative quantile array for values bounding target quantile
     ix_lhs = np.searchsorted(cumul_qtl, qtl)
@@ -63,13 +65,13 @@ def wq_(vals, wts, qtls, order):
     
     Parameters
     ----------
-    vals : {np.ndarray}
+    vals : {|ndarray|}
         array of values to be weighted
-    wts : {np.ndarray}
+    wts : {|ndarray|}
         array of weights
-    qtls : {np.ndarray}
+    qtls : {|ndarray|}
         number in (0, 1), or 1-D iterable thereof
-    order : {np.ndarray}
+    order : {|ndarray|}
         array describing ordering of vals
     """
 
@@ -99,15 +101,15 @@ def wq(vals, wts, qtls, order=None, mask=None):
     
     Parameters
     ----------
-    vals : {np.ndarray}
+    vals : {|ndarray|}
         array of values to be weighted, the same for all 1d slices
-    wts : {np.ndarray}
+    wts : {|ndarray|}
         array of weights to be broadcasted against `vals`
-    qtls : {np.ndarray}
+    qtls : {|ndarray|}
         quantile(s) sought
-    order : {np.ndarray of int}, optional
+    order : {|ndarray| of int}, optional
         index order of `vals` (the default is None, which triggers autosorting)
-    mask : {np.ndarray or None}, optional
+    mask : {|ndarray|, None}, optional
         mask array or None (the default is None, which suppresses masking behavior)
     
     Returns
