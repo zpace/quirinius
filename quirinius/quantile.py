@@ -8,7 +8,7 @@ import itertools
 from .exceptions import *
 
 @nb.njit
-def val_at_qtl_(vals, cumul_qtl, qtl):
+def val_at_qtl(vals, cumul_qtl, qtl):
     """computes interpolated value at given quantile(s)
     
     equivalent to scipy scoreatpercentile
@@ -55,42 +55,6 @@ def val_at_qtl_(vals, cumul_qtl, qtl):
     val_at_qtl[outofbounds] = np.nan
 
     return val_at_qtl
-
-
-@nb.njit(parallel=True)
-def wq_(vals, wts, qtls, order):
-    """weighted quantile base function
-    
-    LLVM, JIT-compiled function for finding weighted quantile
-    
-    Parameters
-    ----------
-    vals : {|ndarray|}
-        array of values to be weighted
-    wts : {|ndarray|}
-        array of weights
-    qtls : {|ndarray|}
-        number in (0, 1), or 1-D iterable thereof
-    order : {|ndarray|}
-        array describing ordering of vals
-    """
-
-    # put values and weights in ascending order
-    vals_ordered = vals[order]
-    wts_ordered = wts[order]
-
-    wt_tot = wts.sum()
-
-    # if all weights are low, return nan
-    if not wt_tot > 0.:
-        nan = np.nan
-        quantiles = np.nan * np.ones(len(qtls))
-    else:
-        cumul_qtl = (np.cumsum(wts_ordered) - 0.5 * wts_ordered) / wt_tot
-        
-        quantiles = val_at_qtl_(vals_ordered, cumul_qtl, qtls)
-
-    return quantiles
 
 @nb.njit
 def wq(vals, wts, qtls, order=None, mask=None):
@@ -142,3 +106,39 @@ def wq(vals, wts, qtls, order=None, mask=None):
             ret[nd_index] = wq_(vals, wts[nd_index], qtls, order)
 
         return ret
+
+
+@nb.njit(parallel=True)
+def wq_(vals, wts, qtls, order):
+    """weighted quantile base function
+    
+    LLVM, JIT-compiled function for finding weighted quantile
+    
+    Parameters
+    ----------
+    vals : {|ndarray|}
+        array of values to be weighted
+    wts : {|ndarray|}
+        array of weights
+    qtls : {|ndarray|}
+        number in (0, 1), or 1-D iterable thereof
+    order : {|ndarray|}
+        array describing ordering of vals
+    """
+
+    # put values and weights in ascending order
+    vals_ordered = vals[order]
+    wts_ordered = wts[order]
+
+    wt_tot = wts.sum()
+
+    # if all weights are low, return nan
+    if not wt_tot > 0.:
+        nan = np.nan
+        quantiles = np.nan * np.ones(len(qtls))
+    else:
+        cumul_qtl = (np.cumsum(wts_ordered) - 0.5 * wts_ordered) / wt_tot
+        
+        quantiles = val_at_qtl(vals_ordered, cumul_qtl, qtls)
+
+    return quantiles
