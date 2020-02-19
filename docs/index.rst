@@ -12,6 +12,9 @@ quirinius
 
 |Docs Badge|
 
+.. automodule:: quirinius.quantile
+   :members:
+
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
