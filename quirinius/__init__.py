@@ -5,3 +5,4 @@ __author__ = 'Zachary Pace <zpace@astro.wisc.edu>'
 __all__ = []
 
 from .quantile import *
+from .exceptions import *

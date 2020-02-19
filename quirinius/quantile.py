@@ -5,6 +5,8 @@ import numpy as np
 
 import itertools
 
+from .exceptions import *
+
 @nb.njit
 def val_at_qtl_(vals, cumul_qtl, qtl):
     """computes interpolated value at given quantile(s)
@@ -25,7 +27,8 @@ def val_at_qtl_(vals, cumul_qtl, qtl):
     np.ndarray
         interpolated values at specified quantiles
     """
-    n = len(vals)
+
+    n = vals.size
 
     # search in cumulative quantile array for values bounding target quantile
     ix_lhs = np.searchsorted(cumul_qtl, qtl)
